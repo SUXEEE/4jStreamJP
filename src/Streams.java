@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Date;
 
 import twitter4j.FilterQuery;
@@ -42,7 +46,15 @@ public class Streams {
                 long userid = status.getUser().getId(); //. ユーザーID
                 String username = status.getUser().getScreenName(); //. ユーザー表示名
                 Date created = status.getCreatedAt(); //. ツイート日時
-                System.out.println( "loc　" + "　lat　" +lat+ "　long　" +lng +  "　username = " + username + ", text = " + text );
+
+                if(location != null){
+                System.out.println( " loc　" + "\n　"
+                					+ "　lat　= "  + lat + "\n　"
+                					+ "　long　= " + lng + "\n　"
+                					+ "　username = " + username + "\n　" +" text = " + text );
+                }else{
+                	//System.out.println( " No geo loc.　");
+                }
          }
 
             @Override
@@ -71,12 +83,21 @@ public class Streams {
             }
         };
         twitterStream.addListener(listener);
-        twitterStream.sample();
+        //twitterStream.sample();
         
         //文字列フィルター
-//        String[] track = { "艦これ", "アーケード", "GIGO" };
-//        FilterQuery filter = new FilterQuery();
-//        filter.track( track );
-//        twitterStream.filter( filter );
+        //String[] track = { "東京" };
+        double[][] locations = {new double[]{132.2,29.9},new double[]{146.1,46.20}};
+        FilterQuery filter = new FilterQuery();	
+        //filter.track( track );
+        filter.locations( locations );
+        twitterStream.filter( filter );
+        
+        
+        
+//        File file = new File("export.txt");
+//		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+//		pw.println(hatenaMsg.toString());
+//		pw.close();
     }
 }
