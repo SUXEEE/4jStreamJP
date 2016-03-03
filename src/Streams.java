@@ -1,12 +1,8 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import twitter4j.FilterQuery;
 import twitter4j.GeoLocation;
-import twitter4j.Query;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
@@ -19,12 +15,17 @@ public class Streams {
 	  
     public static void main(String[] args) throws TwitterException {
         TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
-        Query query = new Query();
-        // 緯度経度を使って新宿区役所あたりから10km四方を設定（IPアドレスでも指定できるらしい）
-        GeoLocation geo = new GeoLocation(35.69384, 139.703549);
-        query.setGeoCode(geo, 10.0, Query.KILOMETERS);
+//        Query query = new Query();
+//        GeoLocation geo = new GeoLocation(35.69384, 139.703549);
+//        query.setGeoCode(geo, 10.0, Query.KILOMETERS);
+//        query.setCount(10);
+        
 
-        query.setCount(10);
+        ArrayList[] prefectures=new ArrayList[47];
+        for(ArrayList prf :prefectures){
+        	prf = new ArrayList();
+        }
+        
         StatusListener listener = new StatusListener() {
             @Override
             public void onStatus(Status status) {
@@ -32,7 +33,7 @@ public class Streams {
                 Double lng = null;
                 String[] urls = null;
                 String[] medias = null;
-                //位置情報が含まれていれば取得する        	
+                
                 GeoLocation location = status.getGeoLocation();
                               
                 if( location != null ){
@@ -41,19 +42,31 @@ public class Streams {
                     lat = dlat;
                     lng = dlng;
                 }
-                long id = status.getId(); //. ツイートID
-                String text = status.getText(); //. ツイート本文
-                long userid = status.getUser().getId(); //. ユーザーID
-                String username = status.getUser().getScreenName(); //. ユーザー表示名
-                Date created = status.getCreatedAt(); //. ツイート日時
+                long id = status.getId(); 
+                String text = status.getText();
+                StringBuilder strbText = new StringBuilder();
+                long userid = status.getUser().getId();
+                String username = status.getUser().getScreenName();
+                Date created = status.getCreatedAt();
+                yahooReverseGeoCoder.setter(lat,lng);
 
+                //swarm
+//                if(text.matches(".*I'm at.*")){
+//                	strbText.append("hoge "+text);
+//                }
+//                
+//                else{
+//                
+//                }
+                
+                
                 if(location != null){
-                System.out.println( " loc　" + "\n　"
-                					+ "　lat　= "  + lat + "\n　"
-                					+ "　long　= " + lng + "\n　"
-                					+ "　username = " + username + "\n　" +" text = " + text );
+                System.out.println( " loc" + "\n"
+                					+ "lat= "  + lat + "\n"
+                					+ "long= " + lng + "\n"
+                					+ "username = " + username + "\n" +" text = " + text );
                 }else{
-                	//System.out.println( " No geo loc.　");
+                	//System.out.println( " No geo loc.");
                 }
          }
 
@@ -85,8 +98,8 @@ public class Streams {
         twitterStream.addListener(listener);
         //twitterStream.sample();
         
-        //文字列フィルター
-        //String[] track = { "東京" };
+        
+        //String[] track = { "譚ｱ莠ｬ" };
         double[][] locations = {new double[]{132.2,29.9},new double[]{146.1,46.20}};
         FilterQuery filter = new FilterQuery();	
         //filter.track( track );
