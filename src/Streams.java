@@ -15,11 +15,6 @@ public class Streams {
 	  
     public static void main(String[] args) throws TwitterException {
         TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
-//        Query query = new Query();
-//        GeoLocation geo = new GeoLocation(35.69384, 139.703549);
-//        query.setGeoCode(geo, 10.0, Query.KILOMETERS);
-//        query.setCount(10);
-        
 
         ArrayList[] prefectures=new ArrayList[47];
         for(ArrayList prf :prefectures){
@@ -48,7 +43,9 @@ public class Streams {
                 long userid = status.getUser().getId();
                 String username = status.getUser().getScreenName();
                 Date created = status.getCreatedAt();
-                yahooReverseGeoCoder.setter(lat,lng);
+                if(lat != null && lng != null){
+                	yahooReverseGeoCoder.setter(lat,lng);
+                }
 
                 //swarm
 //                if(text.matches(".*I'm at.*")){
@@ -58,15 +55,13 @@ public class Streams {
 //                else{
 //                
 //                }
-                
-                
                 if(location != null){
                 System.out.println( " loc" + "\n"
                 					+ "lat= "  + lat + "\n"
                 					+ "long= " + lng + "\n"
                 					+ "username = " + username + "\n" +" text = " + text );
                 }else{
-                	//System.out.println( " No geo loc.");
+                	System.out.println( "No geo loc.");
                 }
          }
 
@@ -100,7 +95,8 @@ public class Streams {
         
         
         //String[] track = { "東京" };
-        double[][] locations = {new double[]{132.2,29.9},new double[]{146.1,46.20}};
+        //double[][] locations = {new double[]{132.2,29.9},new double[]{146.1,46.20}};
+        double[][] locations = {new double[]{129.5,28.4},new double[]{146.1,46.20}};
         FilterQuery filter = new FilterQuery();	
         //filter.track( track );
         filter.locations( locations );
