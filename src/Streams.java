@@ -49,19 +49,12 @@ public class Streams {
                 	yahooReverseGeoCoder.setter(lat,lng);
                 }
 
-                //swarm
-//                if(text.matches(".*I'm at.*")){
-//                	strbText.append("hoge "+text);
-//                }
-//                
-//                else{
-//                
-//                }
                 if(location != null){
-                System.out.println( " loc" + "\n"
-                					+ "lat= "  + lat + "\n"
-                					+ "long= " + lng + "\n"
-                					+ "username = " + username + "\n" +" text = " + text );
+                System.out.println( "geolocation" + "\n"
+                					+ "lat = "  + lat + "\n"
+                					+ "long = " + lng + "\n"
+                					+ "username = " + username + "\n" 
+                					+"text = " + text );
                 }else{
                 	System.out.println( "No geo loc.");
                 }
@@ -94,8 +87,6 @@ public class Streams {
         };
         twitterStream.addListener(listener);
         //twitterStream.sample();
-        
-        
         //String[] track = { "東京" };
         //double[][] locations = {new double[]{132.2,29.9},new double[]{146.1,46.20}};
         double[][] locations = {new double[]{129.5,28.4},new double[]{146.1,46.20}};
@@ -104,11 +95,5 @@ public class Streams {
         filter.locations( locations );
         twitterStream.filter( filter );
         
-        
-        
-//        File file = new File("export.txt");
-//		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-//		pw.println(hatenaMsg.toString());
-//		pw.close();
     }
 }
