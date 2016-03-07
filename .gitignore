@@ -48,4 +48,5 @@ Temporary Items
 
 #twitter4j.properties ignore setting
 twitter4j.properties
+yGeoCorder.properties
 yGeo.xml
