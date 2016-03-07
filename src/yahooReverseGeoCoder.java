@@ -1,36 +1,77 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+
+import org.apache.commons.jxpath.JXPathContext;
 import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 
 public class yahooReverseGeoCoder {
 
 	public static void setter(Double lat, Double lng) {
-		// TODO Auto-generated method stub
+		File xmlFile = new File("yGeo.xml");
 		Document xmlDocument = null;
-		File file = new File("yGeo.xml");
 		
 		try {
-			String yGeoCorder = ResourceBundle.getBundle("yGeoCorder").getString("apiKey");
-			URL url = new URL("http://reverse.search.olp.yahooapis.jp/OpenLocalPlatform/V1/reverseGeoCoder?lat="+lat+"&lon="+lng+yGeoCorder);
+			String yGeoCoder = ResourceBundle.getBundle("yGeoCoder").getString("apiKey");
+			URL url = new URL("http://reverse.search.olp.yahooapis.jp/OpenLocalPlatform/V1/reverseGeoCoder?lat="+lat+"&lon="+lng+yGeoCoder);
 			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 			String strTemp = "";
-			//String yXml = "";
 			
-			FileWriter initFile = new FileWriter(file);
+			FileWriter initFile = new FileWriter(xmlFile);
 			initFile.write("");
 			while (null != (strTemp = br.readLine())) {
-				System.out.println(strTemp);
-				FileWriter filewriter = new FileWriter(file, true);
+				FileWriter filewriter = new FileWriter(xmlFile, true);
 				filewriter.write(strTemp);
 				filewriter.close();
 			}
-			//System.out.println(strTemp);
+			
+			// XMLファイルをDocumentとして読み込む。
+			try {
+				 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+				 DocumentBuilder builder = factory.newDocumentBuilder();
+				 xmlDocument = builder.parse(xmlFile);
+				} catch (ParserConfigurationException e) {
+				 e.printStackTrace();
+				} catch (SAXException e) {
+				 e.printStackTrace();
+				} catch (IOException e) {
+				 e.printStackTrace();
+				}
+			
+			BufferedReader brxml =new BufferedReader(new FileReader(xmlFile));
+			String readText = null;
+			System.out.println("BufferdReader↓");
+			while ( (readText = brxml.readLine()) != null ){
+				System.out.println(readText);
+			}
+			brxml.close();
+			
+			//documentBuilder.extract(xmlFile);
+
+			// 読み込んだDocumnetを元にJXPathContextを生成する。
+			//JXPathContext context = JXPathContext.newContext(xmlDocument);
+			//System.out.println(context.getValue() + "しーぴーえす");
+			//String type = (String) context.getValue("//YDF/Feature/Property/Address");
+			//Object pre = context.getValue(arg0)
+			//Object prefectures = context.getValue();
+			//System.out.println(prefectures.toString() + "nui nui");
+
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
