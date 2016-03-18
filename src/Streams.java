@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,10 +22,52 @@ public class Streams {
     public static void main(String[] args) throws TwitterException {
         TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
 
-        ArrayList[] prefectures=new ArrayList[47];
-        for(ArrayList prf :prefectures){
-        	prf = new ArrayList();
-        }
+        String prefectures[] = {"北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
+        		"茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
+        		"新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県",
+        		"静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県",
+        		"奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県",
+        		"徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県",
+        		"熊本県","大分県","宮崎県","鹿児島県","沖縄県"
+        		};;
+
+        
+        String userProfile=System.getProperty("user.home");
+		FileOutputStream fos = null;
+		BufferedWriter bw = null;
+
+//        try {
+//            //出力先を作成する
+//        	fos = new FileOutputStream(userProfile+"/Documents/GitHub/tweetOfPrefecture.csv");  
+//			fos.write( 0xef );  
+//			fos.write( 0xbb );  
+//			fos.write( 0xbf );  
+//			bw = new BufferedWriter( new OutputStreamWriter( fos, "UTF8" ));
+//			//bw.write("日本語, Alphabet, カタカナ, 1\r\n");
+//			bw.write("ken, tweetAll, extra, tweet1, tweet2, tweet3\r\n");
+//			for(String pre : prefectures){
+//				bw.write(pre+",");
+//				bw.write(0+"\r\n");
+//			}
+//        } catch (IOException ex) {
+//            //例外時処理
+//            ex.printStackTrace();
+//        } finally {
+//			if (bw != null) {
+//				try {
+//					bw.close();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if (fos != null) {
+//				try {
+//					fos.close();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
         
         StatusListener listener = new StatusListener() {
             @Override
@@ -41,11 +87,11 @@ public class Streams {
                 }
                 long id = status.getId(); 
                 String text = status.getText();
-                String text2 = null;
+                String prefecture = null;
                 if(lat != null && lng != null){
                 	System.out.println("Split Address");
-                	text2 = SplitAddress.splitAddress(text);
-                	System.out.println(text2);
+                	prefecture = SplitAddress.splitAddress(text);
+                	//System.out.println(prefecture);
                 }
                 
                 StringBuilder strbText = new StringBuilder();
@@ -59,13 +105,14 @@ public class Streams {
                 					+ "lat = "  + lat + "\n"
                 					+ "long = " + lng + "\n"
                 					+ "username = " + username + "\n" 
-                					+"text = " + text + "\n"
-                					+ "都道府県 =" + text2);
+                					+ "text = " + text + "\n"
+                					+ "都道府県 = " + prefecture);
                 }else{
                 	System.out.println( "No geo loc.");
                 }
                 
-                if(lat != null && lng != null && text2 == null){
+                if(lat != null && lng != null && prefecture == null){
+                	String test = null;
                 	YahooReverseGeoCoder.setter(lat,lng);
                 }
          }

@@ -26,6 +26,7 @@ public class YahooReverseGeoCoder {
 	public static void setter(Double lat, Double lng) {
 		File xmlFile = new File("yGeo.xml");
 		Document xmlDocument = null;
+		String prefecture = null;
 		
 		try {
 			String yGeoCoder = ResourceBundle.getBundle("yGeoCoder").getString("apiKey");
@@ -40,6 +41,9 @@ public class YahooReverseGeoCoder {
 				filewriter.write(strTemp);
 				filewriter.close();
 			}
+			
+//			prefecture = SplitAddress.splitAddress(xmlFile.toString());
+//			System.out.println(prefecture);
 			
 			// XMLファイルをDocumentとして読み込む。
 			try {
@@ -56,6 +60,7 @@ public class YahooReverseGeoCoder {
 			
 			BufferedReader brxml =new BufferedReader(new FileReader(xmlFile));
 			String readText = null;
+			
 			System.out.println("BufferdReader↓");
 			while ( (readText = brxml.readLine()) != null ){
 				System.out.println(readText);
@@ -72,7 +77,6 @@ public class YahooReverseGeoCoder {
 			//Object prefectures = context.getValue();
 			//System.out.println(prefectures.toString() + "nui nui");
 
-			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
