@@ -27,7 +27,7 @@ public class Opencsv {
                 ColumnPositionMappingStrategy start = new ColumnPositionMappingStrategy();
                 start.setType(TweetParameter.class);
 
-                String[] columns = new String[]{"userName", "projectName", "isManager"};
+                String[] columns = new String[]{"ken", "tweetAll", "extra", "tweet1", "tweet2", "tweet3"};
                 start.setColumnMapping(columns);
                 
                 CsvToBean csv = new CsvToBean();
