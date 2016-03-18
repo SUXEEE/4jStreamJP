@@ -63,7 +63,7 @@ public class YahooReverseGeoCoder {
 			
 			System.out.println("BufferdReader↓");
 			while ( (readText = brxml.readLine()) != null ){
-				System.out.println(readText);
+				System.out.println(readText+"\n");
 			}
 			brxml.close();
 			

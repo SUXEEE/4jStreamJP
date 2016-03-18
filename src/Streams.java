@@ -112,8 +112,9 @@ public class Streams {
                 }
                 
                 if(lat != null && lng != null && prefecture == null){
-                	String test = null;
                 	YahooReverseGeoCoder.setter(lat,lng);
+                }else{
+                	System.out.println( "No geo loc.");
                 }
          }
 
