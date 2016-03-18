@@ -1,9 +1,9 @@
 #hogehoge
 
-[Twitter Developers](https://dev.twitter.com/)
+[Twitter Developers](https://dev.twitter.com/)  
 [Yahoo! geo coder API](http://developer.yahoo.co.jp/webapi/map/openlocalplatform/v1/geocoder.html)
 
-* Put /src/twitter4j.prpperties
+* Put /src/twitter4j.properties
 
 `debug=true
 `oauth.consumerKey=your-consumerKey
