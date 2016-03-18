@@ -5,10 +5,10 @@
 
 * Put /src/twitter4j.prpperties
 
-`debug=true`  
-`oauth.consumerKey=your-consumerKey`  
-`oauth.consumerSecret=your-Secret-Key`  
-`oauth.accessToken=your-Token`  
+`debug=true
+`oauth.consumerKey=your-consumerKey
+`oauth.consumerSecret=your-Secret-Key
+`oauth.accessToken=your-Token
 `oauth.accessTokenSecret=your-Token-Secret`  
 
 * Put /src/yGeoCoder.properties
