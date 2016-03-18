@@ -21,7 +21,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 
-public class yahooReverseGeoCoder {
+public class YahooReverseGeoCoder {
 
 	public static void setter(Double lat, Double lng) {
 		File xmlFile = new File("yGeo.xml");

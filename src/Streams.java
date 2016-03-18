@@ -41,22 +41,32 @@ public class Streams {
                 }
                 long id = status.getId(); 
                 String text = status.getText();
+                String text2 = null;
+                if(lat != null && lng != null){
+                	System.out.println("Split Address");
+                	text2 = SplitAddress.splitAddress(text);
+                	System.out.println(text2);
+                }
+                
                 StringBuilder strbText = new StringBuilder();
                 long userid = status.getUser().getId();
                 String username = status.getUser().getScreenName();
                 Date created = status.getCreatedAt();
-                if(lat != null && lng != null){
-                	yahooReverseGeoCoder.setter(lat,lng);
-                }
+
 
                 if(location != null){
                 System.out.println( "geolocation" + "\n"
                 					+ "lat = "  + lat + "\n"
                 					+ "long = " + lng + "\n"
                 					+ "username = " + username + "\n" 
-                					+"text = " + text );
+                					+"text = " + text + "\n"
+                					+ "都道府県 =" + text2);
                 }else{
                 	System.out.println( "No geo loc.");
+                }
+                
+                if(lat != null && lng != null && text2 == null){
+                	YahooReverseGeoCoder.setter(lat,lng);
                 }
          }
 
