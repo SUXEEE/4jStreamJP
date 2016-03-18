@@ -11,11 +11,7 @@ public class SplitAddress {
 		String pre = null;
 		Pattern p = Pattern.compile(pattern2); 
 		Matcher m = p.matcher(text);
-		//List<String> list = new ArrayList<String>();
-		
 		if(m.find()){ 
-//			System.out.println(m.group(0));
-//			System.out.println(m.group(1));
 			pre = m.group(1);
 			pre = pre.trim();
 		}
