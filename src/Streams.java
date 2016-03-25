@@ -92,11 +92,11 @@ public class Streams {
 					System.out.println("Split Address");
 					prefecture = SplitAddress.splitAddress(text);
 					// System.out.println(prefecture);
-					for(int i = 1; i < 48 ; i++){
-						if(prefecture.equals(str.get(i)[0])){
-							System.out.println(str.get(i)[0]+"がcsvから抜き出したList<String>と一致しました，加算します");
-						}
-					}
+//					for(int i = 1; i < 48 ; i++){
+//						if(prefecture.equals(str.get(i)[0])){
+//							System.out.println(str.get(i)[0]+"がcsvから抜き出したList<String>と一致しました，加算します");
+//						}
+//					}
 				}
 				
 
@@ -110,6 +110,13 @@ public class Streams {
 					System.out.println("geolocation" + "\n" + "lat = " + lat + "\n" + "long = " + lng + "\n"
 							+ "username = " + username + "\n" + "text = " + text + "\n" + "都道府県 = " + prefecture + "\n"
 							);
+					for(int i = 1; i < 48 ; i++){
+						if(prefecture != null && prefecture.equals(str.get(i)[0])){
+							System.out.println(str.get(i)[0]+"がcsvから抜き出したList<String>と一致しました，加算します");
+						}
+					}
+					
+					
 				} else {
 					System.out.println("No geo loc.");
 				}
